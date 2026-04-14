@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --background: #eff7f2;
+  --foreground: #1b3128;
+  --glass-panel: rgb(255 255 255 / 10%);
+  --glass-border: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.05)
+  );
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-ui-sans);
+  --font-heading: var(--font-heading-serif);
+}
+
+body {
+  background:
+    linear-gradient(120deg, rgba(222, 238, 229, 0.92) 0%, rgba(235, 248, 244, 0.86) 46%, rgba(225, 236, 247, 0.95) 100%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ui-sans), sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-heading-serif), serif;
+}
+
+.glass-zen {
+  position: relative;
+  background: var(--glass-panel);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 25px 55px rgba(28, 53, 44, 0.12);
+}
+
+.glass-zen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--glass-border);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+button,
+input,
+select,
+a {
+  touch-action: manipulation;
+}
+
+.admin-input {
+  min-height: 44px;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.52);
+  padding: 0.6rem 0.8rem;
+  color: #19372d;
+}
