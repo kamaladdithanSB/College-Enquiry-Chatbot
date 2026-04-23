@@ -97,3 +97,4 @@ See `DEPLOY_VERCEL.md` for the full production checklist.
 - Activity 9: docs touch-up on 2026-04-23T22:37:08Z
 - Activity 10: docs touch-up on 2026-04-23T22:37:13Z
 - Activity 11: docs touch-up on 2026-04-23T22:37:18Z
+- Activity 12: docs touch-up on 2026-04-23T22:37:23Z
