@@ -87,3 +87,4 @@ See `DEPLOY_VERCEL.md` for the full production checklist.
 
 ## Contribution Activity Log
 - Activity 1: docs touch-up on 2026-04-23T22:36:24Z
+- Activity 2: docs touch-up on 2026-04-23T22:36:30Z
