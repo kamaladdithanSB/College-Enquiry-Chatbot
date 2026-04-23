@@ -82,18 +82,6 @@ export function NebulaChat({ onProcessingChange }: NebulaChatProps) {
 
       const data = (await response.json()) as ChatResponsePayload;
 
-      if (!response.ok && response.status === 401) {
-        setMessages((previous) => [
-          ...previous,
-          {
-            id: crypto.randomUUID(),
-            role: "assistant",
-            content: "Please sign in with Google first. Use /signin to continue.",
-          },
-        ]);
-        return;
-      }
-
       if (!response.ok && response.status === 429) {
         setMessages((previous) => [
           ...previous,

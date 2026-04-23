@@ -18,6 +18,14 @@ interface TeamMemberItem {
   user: { email: string | null };
 }
 
+function currencyInr(value: number) {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
 const blankForm = {
   name: "",
   aliases: "",
@@ -121,9 +129,9 @@ export function AdminDashboard() {
           <input className="admin-input" placeholder="Campus city" value={form.campusCity} onChange={(e) => setForm((v) => ({ ...v, campusCity: e.target.value }))} />
           <input className="admin-input" placeholder="Campus country" value={form.campusCountry} onChange={(e) => setForm((v) => ({ ...v, campusCountry: e.target.value }))} />
           <input className="admin-input" placeholder="Website" value={form.website} onChange={(e) => setForm((v) => ({ ...v, website: e.target.value }))} />
-          <input className="admin-input" type="number" placeholder="Tuition USD" value={form.tuitionUsd} onChange={(e) => setForm((v) => ({ ...v, tuitionUsd: Number(e.target.value) }))} />
-          <input className="admin-input" type="number" placeholder="Housing USD" value={form.housingUsd} onChange={(e) => setForm((v) => ({ ...v, housingUsd: Number(e.target.value) }))} />
-          <input className="admin-input" type="number" placeholder="Misc USD" value={form.miscUsd} onChange={(e) => setForm((v) => ({ ...v, miscUsd: Number(e.target.value) }))} />
+          <input className="admin-input" type="number" placeholder="Tuition (INR)" value={form.tuitionUsd} onChange={(e) => setForm((v) => ({ ...v, tuitionUsd: Number(e.target.value) }))} />
+          <input className="admin-input" type="number" placeholder="Housing (INR)" value={form.housingUsd} onChange={(e) => setForm((v) => ({ ...v, housingUsd: Number(e.target.value) }))} />
+          <input className="admin-input" type="number" placeholder="Misc (INR)" value={form.miscUsd} onChange={(e) => setForm((v) => ({ ...v, miscUsd: Number(e.target.value) }))} />
           <input className="admin-input" placeholder="Source label" value={form.sourceLabel} onChange={(e) => setForm((v) => ({ ...v, sourceLabel: e.target.value }))} />
           <input className="admin-input" placeholder="Source URL" value={form.sourceUrl} onChange={(e) => setForm((v) => ({ ...v, sourceUrl: e.target.value }))} />
           <input className="admin-input" type="datetime-local" value={form.lastVerifiedAt.slice(0, 16)} onChange={(e) => setForm((v) => ({ ...v, lastVerifiedAt: e.target.value ? new Date(e.target.value).toISOString() : new Date().toISOString() }))} />
@@ -164,7 +172,7 @@ export function AdminDashboard() {
         <ul className="mt-4 space-y-2 text-sm">
           {institutions.map((institution) => (
             <li key={institution.id} className="rounded-xl border border-white/35 bg-white/35 px-3 py-2 text-[#2e4b41]">
-              {institution.name} - ${institution.tcoaUsd.toLocaleString()} - verified {new Date(institution.lastVerifiedAt).toLocaleString()} - {institution.sourceUrl}
+              {institution.name} - {currencyInr(institution.tcoaUsd)} - verified {new Date(institution.lastVerifiedAt).toLocaleString()} - {institution.sourceUrl}
             </li>
           ))}
         </ul>

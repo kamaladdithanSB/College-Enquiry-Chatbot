@@ -19,52 +19,52 @@ interface InstitutionFacts {
 
 const seedFacts: InstitutionFacts[] = [
   {
-    institution: "Northlake University",
-    aliases: ["northlake", "north lake", "nlu"],
+    institution: "IIT Madras",
+    aliases: ["iitm", "iit madras", "indian institute of technology madras"],
     feesSummary:
-      "Estimated annual TCOA is USD 38,200 including tuition, housing, meal plan, and mandatory student services.",
-    feesTcoaUSD: 38200,
+      "Estimated annual TCOA is INR 310,000 including tuition, hostel, mess, and campus services.",
+    feesTcoaUSD: 310000,
     deadlineSummary:
-      "Priority fall intake deadline: January 15. Final deadline: March 30.",
-    sourceLabel: "Northlake Admissions & Financial Aid",
-    sourceUrl: "https://example.edu/northlake/admissions",
-    lastVerified: "2026-04-10T14:30:00Z",
+      "UG admissions are through JoSAA counselling after JEE Advanced; counselling rounds typically run June to July.",
+    sourceLabel: "IIT Madras Admissions",
+    sourceUrl: "https://www.iitm.ac.in/academics/admissions",
+    lastVerified: "2026-04-20T10:30:00Z",
   },
   {
-    institution: "Riverton Institute of Technology",
-    aliases: ["riverton", "ritech", "rit"],
+    institution: "Anna University, Chennai",
+    aliases: ["anna university", "au chennai", "anna univ"],
     feesSummary:
-      "Estimated annual TCOA is USD 34,900 with tuition, on-campus housing, meals, and technology fees.",
-    feesTcoaUSD: 34900,
+      "Estimated annual TCOA is INR 160,000 including tuition, hostel, exam fees, and academic expenses.",
+    feesTcoaUSD: 160000,
     deadlineSummary:
-      "Early action deadline: December 1. Regular decision deadline: February 14.",
-    sourceLabel: "Riverton Student Finance",
-    sourceUrl: "https://example.edu/riverton/finance",
-    lastVerified: "2026-04-11T09:15:00Z",
+      "TNEA counselling timelines for UG admissions are usually published between May and July on the official portal.",
+    sourceLabel: "Anna University Admissions",
+    sourceUrl: "https://www.annauniv.edu/",
+    lastVerified: "2026-04-19T09:00:00Z",
   },
   {
-    institution: "Crescent City College",
-    aliases: ["crescent", "ccc", "crescent city"],
+    institution: "SRM Institute of Science and Technology",
+    aliases: ["srm", "srmist", "srm university chennai"],
     feesSummary:
-      "Estimated annual TCOA is USD 29,400 including tuition, accommodation, books, and transit pass.",
-    feesTcoaUSD: 29400,
+      "Estimated annual TCOA is INR 450,000 including tuition, hostel, mess, and academic charges.",
+    feesTcoaUSD: 450000,
     deadlineSummary:
-      "Main fall deadline: February 28. Scholarship consideration deadline: January 20.",
-    sourceLabel: "Crescent Enrollment Office",
-    sourceUrl: "https://example.edu/crescent/enrollment",
-    lastVerified: "2026-04-12T16:05:00Z",
+      "SRMJEEE application windows are announced in phases; check portal updates from November to April.",
+    sourceLabel: "SRM Admissions",
+    sourceUrl: "https://www.srmist.edu.in/admissions/",
+    lastVerified: "2026-04-18T08:45:00Z",
   },
   {
-    institution: "Eastbridge School of Business",
-    aliases: ["eastbridge", "esb", "east bridge"],
+    institution: "VIT Vellore",
+    aliases: ["vit", "vit vellore", "vellore institute of technology"],
     feesSummary:
-      "Estimated annual TCOA is USD 41,600 including tuition, residence, and experiential learning fees.",
-    feesTcoaUSD: 41600,
+      "Estimated annual TCOA is INR 360,000 including tuition, hostel, mess, and lab-related expenses.",
+    feesTcoaUSD: 360000,
     deadlineSummary:
-      "Round 1 deadline: November 30. Round 2 deadline: January 31. Final round: April 10.",
-    sourceLabel: "Eastbridge MBA Admissions",
-    sourceUrl: "https://example.edu/eastbridge/mba",
-    lastVerified: "2026-04-09T11:45:00Z",
+      "VITEEE registration and counselling dates are generally published between November and June.",
+    sourceLabel: "VIT Admissions",
+    sourceUrl: "https://viteee.vit.ac.in/",
+    lastVerified: "2026-04-17T12:10:00Z",
   },
 ];
 
@@ -116,6 +116,17 @@ function fromSeed(item: InstitutionFacts): InstitutionRow {
   };
 }
 
+function hasLegacyDemoInstitutions(rows: Institution[]) {
+  const legacyNames = new Set([
+    "Northlake University",
+    "Riverton Institute of Technology",
+    "Crescent City College",
+    "Eastbridge School of Business",
+  ]);
+
+  return rows.some((row) => legacyNames.has(row.name));
+}
+
 export async function getInstitutionRows(teamId?: string): Promise<InstitutionRow[]> {
   if (!process.env.DATABASE_URL) {
     return seedFacts.map(fromSeed);
@@ -128,6 +139,10 @@ export async function getInstitutionRows(teamId?: string): Promise<InstitutionRo
     });
 
     if (!rows.length) {
+      return seedFacts.map(fromSeed);
+    }
+
+    if (hasLegacyDemoInstitutions(rows)) {
       return seedFacts.map(fromSeed);
     }
 
